@@ -2,7 +2,8 @@ let moduleName = 'buildium.angular-ui.compiledynamichtml';
 
 angular.module(moduleName, [])
 
-.directive(function() {
+// @ngInject
+.directive(function CompileDynamicHtml() {
     let directive = {};
 
     directive.restrict = 'A';
