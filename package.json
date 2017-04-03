@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/buildium/angular-ui/issues"
   },
-  "homepage": "https://github.com/buildium/angular-ui#readme"
+  "homepage": "https://github.com/buildium/angular-ui#readme",
+  "dependencies": {
+    "ng-annotate": "1.2.1"
+  },
+  "peerDependencies": {
+    "angular": ">=1.5"
+  }
 }
