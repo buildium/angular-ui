@@ -22,6 +22,63 @@ angular.module('docApp').constant('DOCS_NAVIGATION', {
             ]
           }
         ]
+      },
+      {
+        "name": "event",
+        "type": "groups",
+        "href": "api/event",
+        "navItems": [
+          {
+            "name": "directive",
+            "type": "section",
+            "href": "api/event/directive",
+            "navItems": [
+              {
+                "name": "bdEvent",
+                "type": "directive",
+                "href": "api/event/directive/bdEvent"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "loading-src",
+        "type": "groups",
+        "href": "api/loading-src",
+        "navItems": [
+          {
+            "name": "directive",
+            "type": "section",
+            "href": "api/loading-src/directive",
+            "navItems": [
+              {
+                "name": "bdLoadingSrc",
+                "type": "directive",
+                "href": "api/loading-src/directive/bdLoadingSrc"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "scroll-into-view",
+        "type": "groups",
+        "href": "api/scroll-into-view",
+        "navItems": [
+          {
+            "name": "directive",
+            "type": "section",
+            "href": "api/scroll-into-view/directive",
+            "navItems": [
+              {
+                "name": "bdScrollIntoView",
+                "type": "directive",
+                "href": "api/scroll-into-view/directive/bdScrollIntoView"
+              }
+            ]
+          }
+        ]
       }
     ]
   }

@@ -2,26 +2,7 @@
 
 let $ = require('jquery');
 
-/**
- * @ngdoc directive
- * @name buildium.common.bdScrollIntoView
- *
- * @restrict A
- *
- * @description
- *
- * If this directive's property evalutes to true, the element will be scrolled into view.
- *
- * The speed can be set with the attribute `bd-scroll-into-view-speed`
- *
- * <!-- example #1 -->
- *    <input bd-scroll-into-view="true" />
- * <!-- /example -->
- *
- * <!-- example #2: a very sloooow scroll -->
- *    <input bd-scroll-into-view="vm.someVariable" bd-scroll-into-view-speed="1500" />
- * <!-- /example -->
- */
+
 
 function scrollToElement(element, fn, duration) {
     let target = element.length ? element : $(element);
@@ -39,23 +20,53 @@ function scrollToElement(element, fn, duration) {
 
 let moduleName = 'buildium.angular-ui.scrollintoview';
 
+/**
+ * @ngdoc module
+ * @name scroll-into-view
+ * @module scroll-into-view
+ */
 angular.module(moduleName, [])
-    .directive('bdScrollIntoView', ['$timeout', function bdScrollIntoView($timeout) {
-        var directive = {};
 
-        directive.restrict = 'A';
+/**
+ * @ngdoc directive
+ * @name bdScrollIntoView
+ * @module scroll-into-view
+ *
+ * @restrict A
+ *
+ * @description
+ *
+ * If this directive's property evalutes to true, the element will be scrolled into view.
+ *
+ * @param {Boolean} bdScrollIntoView Whether this directive should be active on the element
+ * @param {Number} bdScrollIntoViewSpeed How fast the content is scrolled
+ *
+ * @example
+ * ```html
+ * <input bd-scroll-into-view="true" />
+ * ```
+ *
+ * @example
+ * ```html
+ * <input bd-scroll-into-view="vm.someVariable" bd-scroll-into-view-speed="1500" />
+ * ```
+ */
+.directive('bdScrollIntoView', ['$timeout', function bdScrollIntoView($timeout) {
+    var directive = {};
 
-        directive.link = function bdScrollIntoViewLink(scope, element, attrs) {
-            var speed = scope.$eval(attrs.bdScrollIntoViewSpeed);
+    directive.restrict = 'A';
 
-            scope.$watch(attrs.bdScrollIntoView, function(newValue) {
-                if (newValue) {
-                    $timeout(scrollToElement.bind(null, element, null, speed));
-                }
-            });
-        };
+    directive.link = function bdScrollIntoViewLink(scope, element, attrs) {
+        var speed = scope.$eval(attrs.bdScrollIntoViewSpeed);
 
-        return directive;
-    }]);
+        scope.$watch(attrs.bdScrollIntoView, function(newValue) {
+            if (newValue) {
+                $timeout(scrollToElement.bind(null, element, null, speed));
+            }
+        });
+    };
+
+    return directive;
+}]);
 
 module.exports = moduleName;

@@ -1,21 +1,34 @@
 'use strict';
 
+
+
+let moduleName = 'buildium.angular-ui.event';
+let $ = require('jquery');
+
+/**
+ * @ngdoc module
+ * @name event
+ * @module event
+ */
+angular.module(moduleName, [])
+
 /**
  * @ngdoc directive
- * @name angular-ui.bdEvent
+ * @name bdEvent
+ * @module event
  *
  * @description
  *
  * Attach callbacks to arbitray DOM events.
  *
+ * @param {object} bdEvent A map of event names to functions on the scope to execute
+ *                         when that event is fired
+ *
  * @example
+ * ```html
  * <div bd-event="{ scroll: onScroll }"></div>
+ * ```
  */
-
-let moduleName = 'buildium.angular-ui.event';
-let $ = require('jquery');
-
-angular.module(moduleName, [])
 .directive('bdEvent', function bdEvent() {
    let directive = {};
 

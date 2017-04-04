@@ -1,8 +1,20 @@
 ﻿'use strict';
 
+let $ = require('jquery');
+
+let moduleName = 'buildium.angular-ui.loadingsrc';
+
+/**
+ * @ngdoc module
+ * @name loading-src
+ * @module loading-src
+ */
+angular.module(moduleName, [])
+
 /**
  * @ngdoc directive
- * @name buildium.manager-base.common.bdLoadingSrc
+ * @name bdLoadingSrc
+ * @module loading-src
  *
  * @description
  * This directive will show a spinner and the message "Loading image" while an
@@ -11,16 +23,13 @@
  * there is odd behavior when you switch the image source. Specifically, the
  * old image will display until the new one is loaded.
  *
+ * @param {string} bdLoadingSrc An angular expression that evaluates to the image url
+ *
  * @example
- *   <img title="Some Image" alt="Some Image" bd-loading-src="vm.image_src" />
+ * ```html
+ * <img title="Some Image" alt="Some Image" bd-loading-src="vm.image_src" />
+ * ```
  */
- 
- let $ = require('jquery');
- 
- let moduleName = 'buildium.angular-ui.loadingsrc';
-
- angular.module(moduleName, [])
-
 .directive('bdLoadingSrc', function LoadingSrc() {
     let directive = {};
 
