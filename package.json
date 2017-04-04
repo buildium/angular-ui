@@ -1,10 +1,13 @@
 {
   "name": "@buildium/angular-ui",
-  "version": "1.1.0-6",
+  "version": "1.1.0-7",
   "description": "A collection of directives for building angular applications",
   "main": "index.js",
   "scripts": {
-    "test": "exit 0"
+    "test": "exit 0",
+    "dist": "browserify index.js -o dist/buildium-angular-ui.js",
+    "docs": "node .build/docs.js",
+    "preversion": "npm run dist && npm run docs"
   },
   "repository": {
     "type": "git",
@@ -24,5 +27,10 @@
   "peerDependencies": {
     "angular": ">=1.5",
     "jquery": "^2.2.3"
+  },
+  "devDependencies": {
+    "browserify": "14.1.0",
+    "dgeni-alive": "0.3.5",
+    "angular": ">=1.5"
   }
 }
