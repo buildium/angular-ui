@@ -1,12 +1,11 @@
 'use strict';
 
-let templateHtml = require('./copy-to-clipboard.html');
 let uniqueId = require('lodash.uniqueid');
-
 let component = {};
 
 component.restrict = 'E';
-component.template = templateHtml;
+component.template = '<a class="{{:: vm.buttonClasses}}" ng-click="vm.copyTextToClipboard()">{{:: vm.buttonLabel}}</a>' +
+    '<div id="{{:: vm.clipBoardTextId}}" class="copy-to-clipboard-text">{{:: vm.copyText}}</div>';
 component.controllerAs = 'vm';
 component.bindToController = true;
 component.bindings = {
