@@ -22,7 +22,7 @@
  angular.module(moduleName, [])
 
 .directive('bdLoadingSrc', function LoadingSrc() {
-    var directive = {};
+    let directive = {};
 
     directive.restrict = 'A';
     directive.transclude = 'element';
@@ -30,7 +30,7 @@
     directive.link = function link(scope, element, attrs, controller, transclude) {
         // Within the directive `element` refers to a comment in place of the transcluded directive.
 
-        var previousImg,
+        let previousImg,
             spinner = $('<div class="form-actions"><button disabled class="wait">Loading image...</button></div>');
 
         scope.$watch(attrs.bdLoadingSrc, function(newSrc) {
