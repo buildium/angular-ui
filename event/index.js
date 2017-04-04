@@ -2,17 +2,14 @@
 
 /**
  * @ngdoc directive
- * @name buildium.common.bdEvent
+ * @name angular-ui.bdEvent
  *
  * @description
  *
  * Attach callbacks to arbitray DOM events.
  *
- * <!-- example -->
- *  <div bd-event="{ scroll: onScroll }"></div>
- * <!-- example -->
- *
- * The onScroll method will receive the jQuery event as it's argument.
+ * @example
+ * <div bd-event="{ scroll: onScroll }"></div>
  */
 
 let moduleName = 'buildium.angular-ui.event';
