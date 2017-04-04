@@ -8,7 +8,11 @@ let moduleName = 'buildium.angular-ui';
  * @module angular-ui
  */
 angular.module(moduleName, [
-    require('./src/compile-dynamic-html')
+    require('./src/compile-dynamic-html'),
+    require('./src/scroll-into-view'),
+    require('./src/event'),
+    require('./src/copy-to-clipboard'),
+    require('./src/loading-src')
 ]);
 
 module.exports = moduleName;
