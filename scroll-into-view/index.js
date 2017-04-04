@@ -6,15 +6,13 @@ let $ = require('jquery');
  * @ngdoc directive
  * @name buildium.common.bdScrollIntoView
  *
- * @restrict 'A'
+ * @restrict A
  *
  * @description
  *
  * If this directive's property evalutes to true, the element will be scrolled into view.
  *
  * The speed can be set with the attribute `bd-scroll-into-view-speed`
- *
- * @depends buildium.common.services.page
  *
  * <!-- example #1 -->
  *    <input bd-scroll-into-view="true" />
