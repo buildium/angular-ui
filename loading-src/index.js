@@ -59,6 +59,6 @@
     };
 
     return directive;
-};
+});
 
 module.exports = moduleName;
