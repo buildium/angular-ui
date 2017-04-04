@@ -1,0 +1,1 @@
+[{"name":"compile-dynamic-html","path":"api/compile-dynamic-html","type":"module","size":8},{"name":"bdCompileDynamicHtml","path":"api/compile-dynamic-html/directive/bdCompileDynamicHtml","type":"directive","size":10},{"name":"data/config.js","type":"config-data","size":5}]
