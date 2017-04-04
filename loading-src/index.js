@@ -1,3 +1,5 @@
+﻿'use strict';
+
 /**
  * @ngdoc directive
  * @name buildium.manager-base.common.bdLoadingSrc
@@ -9,10 +11,11 @@
  * there is odd behavior when you switch the image source. Specifically, the
  * old image will display until the new one is loaded.
  *
- * <!-- example -->
+ * @example
  *   <img title="Some Image" alt="Some Image" bd-loading-src="vm.image_src" />
- * <!-- /exampe -->
  */
+ 
+ let $ = require('jquery');
  
  let moduleName = 'buildium.angular-ui.loadingsrc';
 
