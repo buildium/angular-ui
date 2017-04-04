@@ -11,11 +11,12 @@ component.bindToController = true;
 component.bindings = {
     copyText: '<',
     buttonLabel: '@',
-    buttonClasses: '@?'
+    buttonClasses: '@?',
+    successCallback: '&?',
+    errorCallback: '&?'
 };
 
-//@ngInject
-component.controller = function BdCopyToClipboard($log) {
+component.controller = function BdCopyToClipboard() {
     let vm = this;
 
     function clearSelection() {
@@ -43,6 +44,12 @@ component.controller = function BdCopyToClipboard($log) {
         }
     }
 
+    function handleError() {
+        if (vm.errorCallback) {
+            vm.errorCallback('Oops, this is not supported in your browser');
+        }
+    }
+
     vm.$onInit = function onInit() {
         vm.clipBoardTextId = uniqueId('clipboard-text-');
     };
@@ -52,13 +59,14 @@ component.controller = function BdCopyToClipboard($log) {
         selectText(vm.clipBoardTextId);
         try {
             wasCopySuccessful = document.execCommand('copy');
-            if (wasCopySuccessful) {
-                $log.info('Copied to clipboard');
-            } else {
-                $log.error('Oops, this is not supported in your browser');
+            if (!wasCopySuccessful) {
+                handleError();
+            }
+            if (wasCopySuccessful && vm.successCallback) {
+                vm.successCallback();
             }
         } catch (err) {
-            $log.error('Oops, this is not supported in your browser');
+            handleError();
         }
         clearSelection();
     };
