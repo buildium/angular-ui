@@ -23,6 +23,6 @@
   },
   "peerDependencies": {
     "angular": ">=1.5",
-    "jquery": ">=2.x"
+    "jquery": ">=2.0"
   }
 }
