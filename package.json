@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/buildium/angular-ui#readme",
   "dependencies": {
+    "lodash.uniqueid": "4.0.1",
     "ng-annotate": "1.2.1"
   },
   "peerDependencies": {
