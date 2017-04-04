@@ -2,7 +2,9 @@
 
 /**
  * @ngdoc directive
- * @name angular-ui.bdLoadingSrc
+ * @name bdLoadingSrc
+ *
+ * @module loading-src
  *
  * @description
  * This directive will show a spinner and the message "Loading image" while an
