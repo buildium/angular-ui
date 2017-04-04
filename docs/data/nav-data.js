@@ -24,6 +24,25 @@ angular.module('docApp').constant('DOCS_NAVIGATION', {
         ]
       },
       {
+        "name": "compile-template",
+        "type": "groups",
+        "href": "api/compile-template",
+        "navItems": [
+          {
+            "name": "directive",
+            "type": "section",
+            "href": "api/compile-template/directive",
+            "navItems": [
+              {
+                "name": "bdCompileTemplate",
+                "type": "directive",
+                "href": "api/compile-template/directive/bdCompileTemplate"
+              }
+            ]
+          }
+        ]
+      },
+      {
         "name": "event",
         "type": "groups",
         "href": "api/event",

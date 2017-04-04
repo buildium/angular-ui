@@ -7,8 +7,7 @@ var packages = [
   require('dgeni-alive/src/packages/jsdoc-ext'),
   require('dgeni-alive/src/packages/ngdoc-ext'),
   require('dgeni-alive/src/packages/links-ext'),
-  require('dgeni-alive/src/packages/examples-ext'),
-  require('dgeni-packages/git')
+  require('dgeni-alive/src/packages/examples-ext')
 ];
 
 var configPath = path.join(__dirname, 'docs');
@@ -53,11 +52,10 @@ var docs = docgen.Package(packages)
   generateWebsiteProcessor.locals('productTitle', 'Buildium : Angular-UI');
 })
 
-.config(function(templateFinder, renderDocsProcessor, gitData) {
+.config(function(templateFinder, renderDocsProcessor) {
   templateFinder.templateFolders.unshift(path.resolve(configPath, 'templates/examples'));
   templateFinder.templateFolders.unshift(path.resolve(configPath, 'templates/ngdoc'));
   templateFinder.templateFolders.unshift(path.resolve(configPath, 'templates/app'));
-  renderDocsProcessor.extraData.git = gitData;
 });
 
 var sourceFiles = [
