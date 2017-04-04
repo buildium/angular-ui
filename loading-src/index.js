@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc directive
- * @name buildium.manager-base.common.bdLoadingSrc
+ * @name angular-ui.bdLoadingSrc
  *
  * @description
  * This directive will show a spinner and the message "Loading image" while an
