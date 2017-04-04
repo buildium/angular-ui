@@ -13,14 +13,15 @@ angular.module(moduleName, [
     require('./src/scroll-into-view'),
     require('./src/event'),
     require('./src/copy-to-clipboard'),
-    require('./src/loading-src')
+    require('./src/loading-src'),
+    require('./src/compile-template')
 ]);
 
 module.exports = moduleName;
 
-},{"./src/compile-dynamic-html":4,"./src/copy-to-clipboard":5,"./src/event":6,"./src/loading-src":7,"./src/scroll-into-view":8}],2:[function(require,module,exports){
+},{"./src/compile-dynamic-html":4,"./src/compile-template":5,"./src/copy-to-clipboard":6,"./src/event":7,"./src/loading-src":8,"./src/scroll-into-view":9}],2:[function(require,module,exports){
 /*!
- * jQuery JavaScript Library v2.2.3
+ * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -30,7 +31,7 @@ module.exports = moduleName;
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-04-05T19:26Z
+ * Date: 2016-05-20T17:23Z
  */
 
 (function( global, factory ) {
@@ -86,7 +87,7 @@ var support = {};
 
 
 var
-	version = "2.2.3",
+	version = "2.2.4",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -5027,13 +5028,14 @@ jQuery.Event.prototype = {
 	isDefaultPrevented: returnFalse,
 	isPropagationStopped: returnFalse,
 	isImmediatePropagationStopped: returnFalse,
+	isSimulated: false,
 
 	preventDefault: function() {
 		var e = this.originalEvent;
 
 		this.isDefaultPrevented = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.preventDefault();
 		}
 	},
@@ -5042,7 +5044,7 @@ jQuery.Event.prototype = {
 
 		this.isPropagationStopped = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.stopPropagation();
 		}
 	},
@@ -5051,7 +5053,7 @@ jQuery.Event.prototype = {
 
 		this.isImmediatePropagationStopped = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.stopImmediatePropagation();
 		}
 
@@ -5981,19 +5983,6 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 		styles = getStyles( elem ),
 		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
-
-	// Support: IE11 only
-	// In IE 11 fullscreen elements inside of an iframe have
-	// 100x too small dimensions (gh-1764).
-	if ( document.msFullscreenElement && window.top !== window ) {
-
-		// Support: IE11 only
-		// Running getBoundingClientRect on a disconnected node
-		// in IE throws an error.
-		if ( elem.getClientRects().length ) {
-			val = Math.round( elem.getBoundingClientRect()[ name ] * 100 );
-		}
-	}
 
 	// Some non-html elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -7885,6 +7874,7 @@ jQuery.extend( jQuery.event, {
 	},
 
 	// Piggyback on a donor event to simulate a different one
+	// Used only for `focus(in | out)` events
 	simulate: function( type, elem, event ) {
 		var e = jQuery.extend(
 			new jQuery.Event(),
@@ -7892,27 +7882,10 @@ jQuery.extend( jQuery.event, {
 			{
 				type: type,
 				isSimulated: true
-
-				// Previously, `originalEvent: {}` was set here, so stopPropagation call
-				// would not be triggered on donor event, since in our own
-				// jQuery.event.stopPropagation function we had a check for existence of
-				// originalEvent.stopPropagation method, so, consequently it would be a noop.
-				//
-				// But now, this "simulate" function is used only for events
-				// for which stopPropagation() is noop, so there is no need for that anymore.
-				//
-				// For the 1.x branch though, guard for "click" and "submit"
-				// events is still used, but was moved to jQuery.event.stopPropagation function
-				// because `originalEvent` should point to the original event for the constancy
-				// with other events and for more focused logic
 			}
 		);
 
 		jQuery.event.trigger( e, null, elem );
-
-		if ( e.isDefaultPrevented() ) {
-			event.preventDefault();
-		}
 	}
 
 } );
@@ -10096,6 +10069,32 @@ module.exports = moduleName;
 },{}],5:[function(require,module,exports){
 'use strict';
 
+let moduleName = 'buildium.angular-ui.compiletemplate';
+
+angular.module(moduleName, [])
+.directive('bdCompileTemplate', ['$compile', '$parse', function BdCompileTemplate($compile, $parse) {
+    let directive = {};
+
+    directive.restrict = 'A';
+    directive.link = function link(scope, element, attr) {
+        let parsed = $parse(attr.ngBindHtml);
+        function getStringValue() {
+            return (parsed(scope) || '').toString();
+        }
+
+        //Recompile if the template changes
+        scope.$watch(getStringValue, function stringValueChanged() {
+            $compile(element, null, -9999)(scope);  //The -9999 makes it skip directives so that we do not recompile ourselves
+        });
+    };
+
+    return directive;
+}]);
+
+module.exports = moduleName;
+},{}],6:[function(require,module,exports){
+'use strict';
+
 let uniqueId = require('lodash.uniqueid');
 let component = {};
 
@@ -10175,25 +10174,38 @@ angular.module(moduleName, [])
 
 module.exports = moduleName;
 
-},{"lodash.uniqueid":3}],6:[function(require,module,exports){
+},{"lodash.uniqueid":3}],7:[function(require,module,exports){
 'use strict';
+
+
+
+let moduleName = 'buildium.angular-ui.event';
+let $ = require('jquery');
+
+/**
+ * @ngdoc module
+ * @name event
+ * @module event
+ */
+angular.module(moduleName, [])
 
 /**
  * @ngdoc directive
- * @name angular-ui.bdEvent
+ * @name bdEvent
+ * @module event
  *
  * @description
  *
  * Attach callbacks to arbitray DOM events.
  *
+ * @param {object} bdEvent A map of event names to functions on the scope to execute
+ *                         when that event is fired
+ *
  * @example
+ * ```html
  * <div bd-event="{ scroll: onScroll }"></div>
+ * ```
  */
-
-let moduleName = 'buildium.angular-ui.event';
-let $ = require('jquery');
-
-angular.module(moduleName, [])
 .directive('bdEvent', function bdEvent() {
    let directive = {};
 
@@ -10218,12 +10230,24 @@ angular.module(moduleName, [])
 });
 
 module.exports = moduleName;
-},{"jquery":2}],7:[function(require,module,exports){
+},{"jquery":2}],8:[function(require,module,exports){
 'use strict';
+
+let $ = require('jquery');
+
+let moduleName = 'buildium.angular-ui.loadingsrc';
+
+/**
+ * @ngdoc module
+ * @name loading-src
+ * @module loading-src
+ */
+angular.module(moduleName, [])
 
 /**
  * @ngdoc directive
- * @name buildium.manager-base.common.bdLoadingSrc
+ * @name bdLoadingSrc
+ * @module loading-src
  *
  * @description
  * This directive will show a spinner and the message "Loading image" while an
@@ -10232,16 +10256,13 @@ module.exports = moduleName;
  * there is odd behavior when you switch the image source. Specifically, the
  * old image will display until the new one is loaded.
  *
+ * @param {string} bdLoadingSrc An angular expression that evaluates to the image url
+ *
  * @example
- *   <img title="Some Image" alt="Some Image" bd-loading-src="vm.image_src" />
+ * ```html
+ * <img title="Some Image" alt="Some Image" bd-loading-src="vm.image_src" />
+ * ```
  */
- 
- let $ = require('jquery');
- 
- let moduleName = 'buildium.angular-ui.loadingsrc';
-
- angular.module(moduleName, [])
-
 .directive('bdLoadingSrc', function LoadingSrc() {
     let directive = {};
 
@@ -10284,31 +10305,12 @@ module.exports = moduleName;
 
 module.exports = moduleName;
 
-},{"jquery":2}],8:[function(require,module,exports){
+},{"jquery":2}],9:[function(require,module,exports){
 'use strict';
 
 let $ = require('jquery');
 
-/**
- * @ngdoc directive
- * @name buildium.common.bdScrollIntoView
- *
- * @restrict A
- *
- * @description
- *
- * If this directive's property evalutes to true, the element will be scrolled into view.
- *
- * The speed can be set with the attribute `bd-scroll-into-view-speed`
- *
- * <!-- example #1 -->
- *    <input bd-scroll-into-view="true" />
- * <!-- /example -->
- *
- * <!-- example #2: a very sloooow scroll -->
- *    <input bd-scroll-into-view="vm.someVariable" bd-scroll-into-view-speed="1500" />
- * <!-- /example -->
- */
+
 
 function scrollToElement(element, fn, duration) {
     let target = element.length ? element : $(element);
@@ -10326,24 +10328,54 @@ function scrollToElement(element, fn, duration) {
 
 let moduleName = 'buildium.angular-ui.scrollintoview';
 
+/**
+ * @ngdoc module
+ * @name scroll-into-view
+ * @module scroll-into-view
+ */
 angular.module(moduleName, [])
-    .directive('bdScrollIntoView', ['$timeout', function bdScrollIntoView($timeout) {
-        var directive = {};
 
-        directive.restrict = 'A';
+/**
+ * @ngdoc directive
+ * @name bdScrollIntoView
+ * @module scroll-into-view
+ *
+ * @restrict A
+ *
+ * @description
+ *
+ * If this directive's property evalutes to true, the element will be scrolled into view.
+ *
+ * @param {Boolean} bdScrollIntoView Whether this directive should be active on the element
+ * @param {Number} bdScrollIntoViewSpeed How fast the content is scrolled
+ *
+ * @example
+ * ```html
+ * <input bd-scroll-into-view="true" />
+ * ```
+ *
+ * @example
+ * ```html
+ * <input bd-scroll-into-view="vm.someVariable" bd-scroll-into-view-speed="1500" />
+ * ```
+ */
+.directive('bdScrollIntoView', ['$timeout', function bdScrollIntoView($timeout) {
+    var directive = {};
 
-        directive.link = function bdScrollIntoViewLink(scope, element, attrs) {
-            var speed = scope.$eval(attrs.bdScrollIntoViewSpeed);
+    directive.restrict = 'A';
 
-            scope.$watch(attrs.bdScrollIntoView, function(newValue) {
-                if (newValue) {
-                    $timeout(scrollToElement.bind(null, element, null, speed));
-                }
-            });
-        };
+    directive.link = function bdScrollIntoViewLink(scope, element, attrs) {
+        var speed = scope.$eval(attrs.bdScrollIntoViewSpeed);
 
-        return directive;
-    }]);
+        scope.$watch(attrs.bdScrollIntoView, function(newValue) {
+            if (newValue) {
+                $timeout(scrollToElement.bind(null, element, null, speed));
+            }
+        });
+    };
+
+    return directive;
+}]);
 
 module.exports = moduleName;
 
