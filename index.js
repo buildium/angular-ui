@@ -13,7 +13,7 @@ angular.module(moduleName, [
     require('./src/event'),
     require('./src/copy-to-clipboard'),
     require('./src/loading-src'),
-    require('./compile-template')
+    require('./src/compile-template')
 ]);
 
 module.exports = moduleName;
