@@ -30,10 +30,12 @@
   },
   "devDependencies": {
     "angular": ">=1.5",
+    "angular-mocks": "1.6.4",
     "browserify": "14.1.0",
     "dgeni-alive": "0.3.5",
     "electron": "1.6.2",
     "jasmine": "2.5.3",
+    "jquery": "2.2.4",
     "karma": "1.5.0",
     "karma-browserify": "5.1.1",
     "karma-electron-launcher": "0.2.0",
