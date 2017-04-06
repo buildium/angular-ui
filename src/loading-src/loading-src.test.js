@@ -13,8 +13,8 @@ describe('Directive: bdLoadingSrc', () => {
     describe('bd-loading-src', () => {
         let elem, rootScope, compile, scope;
 
-        let template = `
-            <div>
+        let template = 
+            `<div>
                 <button class="next-image" ng-click="next()">Next Image</button>
                 <img style="max-width: 500px;" bd-loading-src="images[index]">
             </div>`;
