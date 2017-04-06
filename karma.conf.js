@@ -59,7 +59,7 @@ module.exports = function(config) {
     browsers: ['Electron'],
     
     electronOpts: {
-        show: true
+        show: false
     },
 
     // Continuous Integration mode
