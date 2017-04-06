@@ -13,7 +13,11 @@ describe('Directive: bdLoadingSrc', () => {
     describe('bd-loading-src', () => {
         let elem, rootScope, compile, scope;
 
-        let template = '<button class="next-image" ng-click="next()">Next Image</button><div class="image"><img style="max-width: 500px;" bd-loading-src="images[index]"></div>';
+        let template = `
+            <div>
+                <button class="next-image" ng-click="next()">Next Image</button>
+                <img style="max-width: 500px;" bd-loading-src="images[index]">
+            </div>`;
         
         beforeEach(inject(($rootScope, $compile) => {
             rootScope = $rootScope;
@@ -45,7 +49,7 @@ describe('Directive: bdLoadingSrc', () => {
             
             expect($(elem).find('.wait').length).toEqual(1);
             
-            $(elem).click();
+            $(elem).find('.next-image').click();
 
             expect($(elem).find('.wait').length).toEqual(1);
         });
@@ -60,7 +64,7 @@ describe('Directive: bdLoadingSrc', () => {
                 expect($(elem).find('.wait').length).toEqual(0);
             });
             
-            $(elem).click();
+            $(elem).find('.next-image').click();
             
             $(elem).find('img').load(() => {
                 expect($(elem).find('.wait').length).toEqual(0);
