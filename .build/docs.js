@@ -2,6 +2,7 @@
 
 var path = require('path');
 var buildiumAngularDocs = require('@buildium/angular-docs');
+var ghPages = process.argv.indexOf('--gh-pages') !== -1;
 
 buildiumAngularDocs({
     scripts: [
@@ -13,5 +14,6 @@ buildiumAngularDocs({
         path.join(__dirname, '../src/**/*.js'),
         path.join(__dirname, '../index.js')
     ],
-    destination: path.join(__dirname, '../docs')
+    destination: path.join(__dirname, '../docs'),
+    ghPages: ghPages
 });

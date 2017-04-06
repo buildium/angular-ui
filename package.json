@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start --single-run",
-    "dist": "browserify index.js -o dist/buildium-angular-ui.js",
+    "dist": "mkdirp dist && browserify index.js -o dist/buildium-angular-ui.js",
     "docs": "node .build/docs.js",
-    "preversion": "npm run dist && npm run docs"
+    "preversion": "npm run dist",
+    "version": "npm run docs -- --gh-pages"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "karma-browserify": "5.1.1",
     "karma-electron-launcher": "0.2.0",
     "karma-jasmine": "1.1.0",
+    "mkdirp": "0.5.1",
     "watchify": "3.9.0"
   }
 }
