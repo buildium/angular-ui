@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start --single-run",
     "dist": "browserify index.js -o dist/buildium-angular-ui.js",
-    "docs": "node .build/docs.js && gh-pages -d docs",
+    "docs": "node .build/docs.js",
     "preversion": "npm run dist && npm run docs"
   },
   "repository": {
@@ -29,11 +29,10 @@
     "jquery": "^2.2.3"
   },
   "devDependencies": {
+    "@buildium/angular-docs": "github:buildium/angular-docs",
     "angular": ">=1.5",
     "browserify": "14.1.0",
-    "dgeni-alive": "0.3.5",
     "electron": "1.6.2",
-    "gh-pages": "0.12.0",
     "jasmine": "2.5.3",
     "karma": "1.5.0",
     "karma-browserify": "5.1.1",
