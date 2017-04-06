@@ -59,7 +59,6 @@ angular.module(moduleName, [])
                 img.attr('src', newSrc);
                 img.on('load', function() {
                     scope.$apply(function() {
-                        debugger;
                         spinner.remove();
                         element.after(img);
                     });
