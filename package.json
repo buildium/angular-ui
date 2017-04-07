@@ -7,7 +7,7 @@
     "test": "karma start --single-run",
     "dist": "mkdirp dist && browserify index.js -o dist/buildium-angular-ui.js",
     "docs": "node .build/docs.js",
-    "preversion": "npm run dist",
+    "prepublish": "npm run dist",
     "version": "npm run docs -- --gh-pages"
   },
   "repository": {
