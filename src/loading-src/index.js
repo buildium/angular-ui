@@ -1,8 +1,8 @@
-﻿'use strict';
+/* global angular */
 
-let $ = require('jquery');
+const $ = require('jquery');
 
-let moduleName = 'buildium.angular-ui.loadingsrc';
+const moduleName = 'buildium.angular-ui.loadingsrc';
 
 /**
  * @ngdoc module
@@ -30,8 +30,8 @@ angular.module(moduleName, [])
  * <img title="Some Image" alt="Some Image" bd-loading-src="vm.image_src" />
  * ```
  */
-.directive('bdLoadingSrc', function LoadingSrc() {
-    let directive = {};
+.directive('bdLoadingSrc', () => {
+    const directive = {};
 
     directive.restrict = 'A';
     directive.transclude = 'element';
@@ -39,10 +39,10 @@ angular.module(moduleName, [])
     directive.link = function link(scope, element, attrs, controller, transclude) {
         // Within the directive `element` refers to a comment in place of the transcluded directive.
 
-        let previousImg,
-            spinner = $('<div class="form-actions"><button disabled class="wait">Loading image...</button></div>');
+        let previousImg;
+        const spinner = $('<div class="form-actions"><button disabled class="wait">Loading image...</button></div>');
 
-        scope.$watch(attrs.bdLoadingSrc, function(newSrc) {
+        scope.$watch(attrs.bdLoadingSrc, (newSrc) => {
             if (!newSrc) {
                 return;
             }
@@ -53,12 +53,12 @@ angular.module(moduleName, [])
 
             element.after(spinner);
 
-            transclude(scope, function(img) {
+            transclude(scope, (img) => {
                 previousImg = img;
 
                 img.attr('src', newSrc);
-                img.on('load', function() {
-                    scope.$apply(function() {
+                img.on('load', () => {
+                    scope.$apply(() => {
                         spinner.remove();
                         element.after(img);
                     });

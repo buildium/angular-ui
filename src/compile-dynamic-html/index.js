@@ -1,4 +1,6 @@
-let moduleName = 'buildium.angular-ui.compiledynamichtml';
+/* global angular */
+
+const moduleName = 'buildium.angular-ui.compiledynamichtml';
 
 /**
  * @ngdoc module
@@ -45,20 +47,20 @@ angular.module(moduleName, [])
     </example>
  *
  */
-.directive('bdCompileDynamicHtml', function CompileDynamicHtml() {
-    let directive = {};
+.directive('bdCompileDynamicHtml', ['$compile', function CompileDynamicHtml($compile) {
+    const directive = {};
 
     directive.restrict = 'A';
     directive.replace = true;
 
     directive.link = function link(scope, ele, attrs) {
-        scope.$watch(attrs.bdCompileDynamicHtml, function(html) {
+        scope.$watch(attrs.bdCompileDynamicHtml, (html) => {
             ele.html(html);
             $compile(ele.contents())(scope);
         });
     };
 
     return directive;
-});
+}]);
 
 module.exports = moduleName;

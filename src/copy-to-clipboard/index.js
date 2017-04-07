@@ -1,7 +1,8 @@
-'use strict';
+/* global angular */
 
-let uniqueId = require('lodash.uniqueid');
-let component = {};
+const uniqueId = require('lodash.uniqueid');
+
+const component = {};
 
 component.restrict = 'E';
 component.template = '<a class="{{:: vm.buttonClasses}}" ng-click="vm.copyTextToClipboard()">{{:: vm.buttonLabel}}</a>' +
@@ -16,11 +17,11 @@ component.bindings = {
     errorCallback: '&?'
 };
 
-component.controller = function BdCopyToClipboard() {
-    let vm = this;
+component.controller = ['$window', '$document', function BdCopyToClipboard($window, $document) {
+    const vm = this;
 
     function clearSelection() {
-        let selection = window.getSelection ? window.getSelection() : document.selection;
+        const selection = $window.getSelection ? $window.getSelection() : $document.selection;
         if (selection) {
             if (selection.removeAllRanges && typeof selection.removeAllRanges === 'function') {
                 selection.removeAllRanges();
@@ -33,14 +34,14 @@ component.controller = function BdCopyToClipboard() {
     function selectText(containerid) {
         let range;
         clearSelection();
-        if (document.selection) {
-            range = document.body.createTextRange();
-            range.moveToElementText(document.getElementById(containerid));
+        if ($document.selection) {
+            range = $document.body.createTextRange();
+            range.moveToElementText($document.getElementById(containerid));
             range.select();
-        } else if (window.getSelection) {
-            range = document.createRange();
-            range.selectNode(document.getElementById(containerid));
-            window.getSelection().addRange(range);
+        } else if ($window.getSelection) {
+            range = $document.createRange();
+            range.selectNode($document.getElementById(containerid));
+            $window.getSelection().addRange(range);
         }
     }
 
@@ -58,7 +59,7 @@ component.controller = function BdCopyToClipboard() {
         let wasCopySuccessful;
         selectText(vm.clipBoardTextId);
         try {
-            wasCopySuccessful = document.execCommand('copy');
+            wasCopySuccessful = $document.execCommand('copy');
             if (!wasCopySuccessful) {
                 handleError();
             }
@@ -70,11 +71,11 @@ component.controller = function BdCopyToClipboard() {
         }
         clearSelection();
     };
-};
+}];
 
-let moduleName = 'buildium.angular-ui.copytoclipboard';
+const moduleName = 'buildium.angular-ui.copytoclipboard';
 
 angular.module(moduleName, [])
-.component('bdCopyToClipboard', component)
+.component('bdCopyToClipboard', component);
 
 module.exports = moduleName;
