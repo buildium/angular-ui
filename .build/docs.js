@@ -7,7 +7,7 @@ var ghPages = process.argv.indexOf('--gh-pages') !== -1;
 buildiumAngularDocs({
     scripts: [
         '//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js',
-        'src/index.js'
+        'index.js'
     ],
     title: 'Buildium : Angular-UI',
     sourceFiles: [
