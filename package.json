@@ -4,7 +4,7 @@
   "description": "A collection of directives for building angular applications",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --config buildium src/**",
+    "lint": "eslint --config buildium src/** --ignore-pattern *.test.js",
     "lint:fix": "eslint --config buildium src/** --fix",
     "pretest": "npm run lint",
     "test": "karma start --single-run",
