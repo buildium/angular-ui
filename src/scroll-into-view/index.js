@@ -1,13 +1,12 @@
-'use strict';
+/* global angular */
 
-let $ = require('jquery');
-
+const $ = require('jquery');
 
 
 function scrollToElement(element, fn, duration) {
-    let target = element.length ? element : $(element);
-    let callback = (fn && typeof fn === 'function') ? fn : function emptyFn() {};
-    let speed = duration || 750;
+    const target = element.length ? element : $(element);
+    const callback = (fn && typeof fn === 'function') ? fn : function emptyFn() {};
+    const speed = duration || 750;
 
     if (target.length) {
         $('html,body').animate({
@@ -16,9 +15,9 @@ function scrollToElement(element, fn, duration) {
             .promise()
             .then(callback);
     }
-};
+}
 
-let moduleName = 'buildium.angular-ui.scrollintoview';
+const moduleName = 'buildium.angular-ui.scrollintoview';
 
 /**
  * @ngdoc module
@@ -52,14 +51,14 @@ angular.module(moduleName, [])
  * ```
  */
 .directive('bdScrollIntoView', ['$timeout', function bdScrollIntoView($timeout) {
-    var directive = {};
+    const directive = {};
 
     directive.restrict = 'A';
 
     directive.link = function bdScrollIntoViewLink(scope, element, attrs) {
-        var speed = scope.$eval(attrs.bdScrollIntoViewSpeed);
+        const speed = scope.$eval(attrs.bdScrollIntoViewSpeed);
 
-        scope.$watch(attrs.bdScrollIntoView, function(newValue) {
+        scope.$watch(attrs.bdScrollIntoView, (newValue) => {
             if (newValue) {
                 $timeout(scrollToElement.bind(null, element, null, speed));
             }

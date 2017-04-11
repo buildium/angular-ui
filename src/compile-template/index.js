@@ -1,11 +1,11 @@
-'use strict';
+/* global angular */
 
 /**
  * @ngdoc module
  * @name compile-template
  * @module compile-template
  */
-let moduleName = 'buildium.angular-ui.compiletemplate';
+const moduleName = 'buildium.angular-ui.compiletemplate';
 
 angular.module(moduleName, [])
 /**
@@ -44,17 +44,17 @@ angular.module(moduleName, [])
  *
  */
 .directive('bdCompileTemplate', ['$compile', '$parse', function BdCompileTemplate($compile, $parse) {
-    let directive = {};
+    const directive = {};
 
     directive.restrict = 'A';
     directive.link = function link(scope, element, attr) {
-        let parsed = $parse(attr.ngBindHtml);
+        const parsed = $parse(attr.ngBindHtml);
         function getStringValue() {
             return (parsed(scope) || '').toString();
         }
 
         //Recompile if the template changes
-        scope.$watch(getStringValue, function stringValueChanged() {
+        scope.$watch(getStringValue, () => {
             $compile(element, null, -9999)(scope);  //The -9999 makes it skip directives so that we do not recompile ourselves
         });
     };
