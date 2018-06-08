@@ -67,14 +67,14 @@
       name="index.html"
       language="html"
       type="html">
-      <pre><code>&lt;div ng-controller=&quot;ExampleController&quot;&gt;&#13;&#10;    &lt;label&gt;Title&#13;&#10;        &lt;input type=&quot;text&quot; ng-model=&quot;title&quot; /&gt;&#13;&#10;    &lt;/label&gt;&#13;&#10;    &lt;label&gt;Compile Template&#13;&#10;     &lt;textarea ng-model=&quot;dynamicHtml&quot; style=&quot;display: block&quot;&gt;&lt;/textarea&gt;&#13;&#10;    &lt;/label&gt;&#13;&#10;    &lt;h2&gt;Result&lt;/h2&gt;&#13;&#10;    &lt;div ng-bind-html=&quot;dynamicHtml&quot; bd-compile-template&gt;&lt;/div&gt;&#13;&#10;&lt;/div&gt;&#13;</code></pre>
+      <pre><code>&lt;div ng-controller=&quot;ExampleController&quot;&gt;&#10;    &lt;label&gt;Title&#10;        &lt;input type=&quot;text&quot; ng-model=&quot;title&quot; /&gt;&#10;    &lt;/label&gt;&#10;    &lt;label&gt;Compile Template&#10;     &lt;textarea ng-model=&quot;dynamicHtml&quot; style=&quot;display: block&quot;&gt;&lt;/textarea&gt;&#10;    &lt;/label&gt;&#10;    &lt;h2&gt;Result&lt;/h2&gt;&#10;    &lt;div ng-bind-html=&quot;dynamicHtml&quot; bd-compile-template&gt;&lt;/div&gt;&#10;&lt;/div&gt;</code></pre>
     </div>
   
     <div class="runnable-example-file" 
       name="script.js"
       language="js"
       type="js">
-      <pre><code>angular.module(&#39;compileTemplateExample&#39;, [])&#13;&#10;.controller(&#39;ExampleController&#39;, [&#39;$scope&#39;, function($scope) {&#13;&#10;                $scope.title = &#39;Hello world&#39;;&#13;&#10;                $scope.dynamicHtml = &#39;&lt;b&gt;{{title}}&lt;/b&gt;&#39;&#13;&#10;            }]);&#13;</code></pre>
+      <pre><code>angular.module(&#39;compileTemplateExample&#39;, [])&#10;.controller(&#39;ExampleController&#39;, [&#39;$scope&#39;, function($scope) {&#10;                $scope.title = &#39;Hello world&#39;;&#10;                $scope.dynamicHtml = &#39;&lt;b&gt;{{title}}&lt;/b&gt;&#39;&#10;            }]);</code></pre>
     </div>
   
 

@@ -1,8 +1,8 @@
 (function(angular) {
   'use strict';
-'use strict';
+/* global angular */
 
-let moduleName = 'buildium.angular-ui';
+const moduleName = 'buildium.angular-ui';
 
 /**
  * @ndgoc module
