@@ -60,13 +60,13 @@ describe('Directive: bdLoadingSrc', () => {
             scope.$digest();
             const $elem = $(elem);
 
-            $elem.find('img').load(() => {
+            $elem.find('img').on('load', () => {
                 expect($(elem).find('.wait').length).toEqual(0);
             });
 
             $elem.find('.next-image').click();
 
-            $elem.find('img').load(() => {
+            $elem.find('img').on('load', () => {
                 expect($elem.find('.wait').length).toEqual(0);
             });
         });
